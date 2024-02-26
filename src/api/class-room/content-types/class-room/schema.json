@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "class_rooms",
+  "info": {
+    "singularName": "class-room",
+    "pluralName": "class-rooms",
+    "displayName": "Class room"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "students": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::student.student",
+      "inversedBy": "class_rooms"
+    }
+  }
+}
