@@ -787,6 +787,7 @@ export interface ApiClassRoomClassRoom extends Schema.CollectionType {
     singularName: 'class-room';
     pluralName: 'class-rooms';
     displayName: 'Class room';
+    description: '';
   };
   options: {
     draftAndPublish: false;
@@ -801,6 +802,21 @@ export interface ApiClassRoomClassRoom extends Schema.CollectionType {
       'api::class-room.class-room',
       'manyToMany',
       'api::student.student'
+    >;
+    teachers: Attribute.Relation<
+      'api::class-room.class-room',
+      'oneToMany',
+      'api::teacher.teacher'
+    >;
+    subjects: Attribute.Relation<
+      'api::class-room.class-room',
+      'oneToMany',
+      'api::subject.subject'
+    >;
+    rooms: Attribute.Relation<
+      'api::class-room.class-room',
+      'oneToMany',
+      'api::room.room'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -837,6 +853,11 @@ export interface ApiRoomRoom extends Schema.CollectionType {
   };
   attributes: {
     name: Attribute.String & Attribute.Required & Attribute.Unique;
+    class_room: Attribute.Relation<
+      'api::room.room',
+      'manyToOne',
+      'api::class-room.class-room'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -864,6 +885,12 @@ export interface ApiStudentStudent extends Schema.CollectionType {
       'manyToMany',
       'api::class-room.class-room'
     >;
+    mobile: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: '10';
+        maxLength: '10';
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -894,6 +921,11 @@ export interface ApiSubjectSubject extends Schema.CollectionType {
   };
   attributes: {
     name: Attribute.String & Attribute.Required;
+    class_room: Attribute.Relation<
+      'api::subject.subject',
+      'manyToOne',
+      'api::class-room.class-room'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -924,6 +956,11 @@ export interface ApiTeacherTeacher extends Schema.CollectionType {
   };
   attributes: {
     name: Attribute.String & Attribute.Required;
+    class_room: Attribute.Relation<
+      'api::teacher.teacher',
+      'manyToOne',
+      'api::class-room.class-room'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

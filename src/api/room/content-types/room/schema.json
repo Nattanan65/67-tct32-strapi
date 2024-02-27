@@ -15,6 +15,12 @@
       "type": "string",
       "required": true,
       "unique": true
+    },
+    "class_room": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::class-room.class-room",
+      "inversedBy": "rooms"
     }
   }
 }
